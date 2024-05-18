@@ -77,6 +77,9 @@ module.exports = {
           key: 'id'
         }
       },
+      fanMessage: {
+        type: Sequelize.STRING
+      },
       restaurantCategoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,

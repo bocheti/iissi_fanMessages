@@ -15,10 +15,20 @@ import defaultProductImage from '../../../assets/product.jpeg'
 export default function RestaurantDetailScreen ({ navigation, route }) {
   const [restaurant, setRestaurant] = useState({})
   const [productToBeDeleted, setProductToBeDeleted] = useState(null)
+  const [changingColor, setChangingColor] = useState(0)
+  const colors = ['red', 'goldenrod', 'pink', 'green', 'orange', 'purple', 'blue']
 
   useEffect(() => {
     fetchRestaurantDetail()
   }, [route])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setChangingColor((prevColor) => (prevColor === 6 ? 0 : prevColor + 1))
+    }, 1000) // Change color every x milliseconds
+
+    return () => clearInterval(interval) // Clean up the interval when the component unmounts
+  }, [])
 
   const renderHeader = () => {
     return (
@@ -31,6 +41,8 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
             <TextRegular textStyle={styles.description}>{restaurant.restaurantCategory ? restaurant.restaurantCategory.name : ''}</TextRegular>
           </View>
         </ImageBackground>
+
+        {restaurant.fanMessage && <TextSemiBold textStyle={{ color: colors[changingColor], fontSize: 15, alignSelf: 'center', marginTop: 10 }}>{restaurant.fanMessage}</TextSemiBold>}
 
         <Pressable
           onPress={() => navigation.navigate('CreateProductScreen', { id: restaurant.id })

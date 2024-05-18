@@ -19,7 +19,7 @@ export default function CreateRestaurantScreen ({ navigation }) {
   const [restaurantCategories, setRestaurantCategories] = useState([])
   const [backendErrors, setBackendErrors] = useState()
 
-  const initialRestaurantValues = { name: null, description: null, address: null, postalCode: null, url: null, shippingCosts: null, email: null, phone: null, restaurantCategoryId: null }
+  const initialRestaurantValues = { name: null, description: null, address: null, postalCode: null, url: null, shippingCosts: null, email: null, phone: null, fanMessage: null, restaurantCategoryId: null }
   const validationSchema = yup.object().shape({
     name: yup
       .string()
@@ -53,7 +53,11 @@ export default function CreateRestaurantScreen ({ navigation }) {
       .number()
       .positive()
       .integer()
-      .required('Restaurant category is required')
+      .required('Restaurant category is required'),
+    fanMessage: yup
+      .string()
+      .nullable()
+      .max(255, 'Fan message too long')
   })
 
   useEffect(() => {
@@ -132,6 +136,10 @@ export default function CreateRestaurantScreen ({ navigation }) {
               <InputItem
                 name='name'
                 label='Name:'
+              />
+              <InputItem
+                name='fanMessage'
+                label='Introduce a message for the fans:'
               />
               <InputItem
                 name='description'

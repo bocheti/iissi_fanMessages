@@ -76,7 +76,8 @@ const loadModel = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE,
       defaultValue: new Date()
-    }
+    },
+    fanMessage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Restaurant'
